@@ -1,0 +1,119 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-06-27T16:15:51.928Z",
+    "end": "2025-06-27T16:15:57.260Z",
+    "duration": 5332,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "301cb769-b274-4558-8929-2cb8d7c858cb",
+      "title": "",
+      "fullFile": "C:\\Users\\ACER\\Documents\\Project bootcamp\\web_automation\\test\\tugas.js",
+      "file": "\\test\\tugas.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "4b2acefd-cdfc-4a64-8813-69d3f6205e73",
+          "title": "Tugas Automate Website saucedemo.com",
+          "fullFile": "C:\\Users\\ACER\\Documents\\Project bootcamp\\web_automation\\test\\tugas.js",
+          "file": "\\test\\tugas.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Harus berhasil melakukan login",
+              "fullTitle": "Tugas Automate Website saucedemo.com Harus berhasil melakukan login",
+              "timedOut": false,
+              "duration": 1911,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Buka browser Chrome baru untuk tes ini.\n        let driver = await new Builder().forBrowser('chrome').build();\n        \n        try {\n            await driver.get('https://www.saucedemo.com/');\n            // 2. Cari elemen, lalu definisikan ke variabel\n            let inputUsername = await driver.findElement(By.css('[data-test=\"username\"]'));\n            let inputPassword = await driver.findElement(By.css('[data-test=\"password\"]'));\n            let buttonLogin = await driver.findElement(By.css('[data-test=\"login-button\"]'));\n            // 3. Jalankan action untuk elemen yang sudah didefinisikan\n            await inputUsername.sendKeys('standard_user');\n            await inputPassword.sendKeys('secret_sauce');\n            await buttonLogin.click();\n            // --- ASSERTION ---\n            // 4. Pastikan kita berhasil masuk ke halaman produk\n            // Kita cek apakah logo produknya muncul (ter-display)\n            await driver.wait(until.urlContains('/inventory.html'), 5000); // Tunggu URL berubah dulu\n            let appLogo = await driver.findElement(By.className('app_logo'));\n            assert(await appLogo.isDisplayed(), \"Gagal login, logo aplikasi tidak ditemukan.\");\n        } finally {\n            // --- TEARDOWN ---\n            // 5. Tutup browser setelah tes selesai.\n            await driver.quit();\n        }",
+              "err": {},
+              "uuid": "0f752a00-491d-4ae7-a226-78276df9abfd",
+              "parentUUID": "4b2acefd-cdfc-4a64-8813-69d3f6205e73",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Harus berhasil mengurutkan produk dari A-Z",
+              "fullTitle": "Tugas Automate Website saucedemo.com Harus berhasil mengurutkan produk dari A-Z",
+              "timedOut": false,
+              "duration": 3408,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let driver = await new Builder().forBrowser('chrome').build();\n        try {\n            // 1. Lakukan login terlebih dahulu\n            await driver.get('https://www.saucedemo.com/');\n            await driver.findElement(By.css('[data-test=\"username\"]')).sendKeys('standard_user');\n            await driver.findElement(By.css('[data-test=\"password\"]')).sendKeys('secret_sauce');\n            await driver.findElement(By.css('[data-test=\"login-button\"]')).click();\n            await driver.wait(until.urlContains('/inventory.html'), 5000);\n            // 2. Klik dropdown dan pilih opsi \"Name (A to Z)\"\n            let sortDropdown = await driver.findElement(By.css('[data-test=\"product-sort-container\"]'));\n            await sortDropdown.sendKeys('az'); // \"az\" adalah value untuk opsi A to Z\n            // --- ASSERTION ---\n            // 3. Ambil semua nama produk dan pastikan urutannya benar\n            let itemElements = await driver.findElements(By.className('inventory_item_name'));\n            let itemNames = await Promise.all(itemElements.map(element => element.getText()));\n            \n            // Buat versi yang seharusnya terurut untuk perbandingan\n            let sortedItemNames = [...itemNames].sort();\n            // Bandingkan isi kedua array, harus sama persis\n            assert.deepStrictEqual(itemNames, sortedItemNames, \"Gagal, urutan produk tidak sesuai A-Z\");\n        } finally {\n            // --- TEARDOWN ---\n            await driver.quit();\n        }",
+              "err": {},
+              "uuid": "ec672afe-276a-42da-be94-0a4b2be8c590",
+              "parentUUID": "4b2acefd-cdfc-4a64-8813-69d3f6205e73",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "0f752a00-491d-4ae7-a226-78276df9abfd",
+            "ec672afe-276a-42da-be94-0a4b2be8c590"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5319,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 60000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.7.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}
